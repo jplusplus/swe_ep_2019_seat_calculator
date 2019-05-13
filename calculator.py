@@ -35,6 +35,7 @@ def calculate_seats_swe_ep(party_votes, available_seats=20):
             ...
         ]
     """
+ 
     # Set up data structures
     n_seats = defaultdict(int)
     result = defaultdict(int)
@@ -54,7 +55,7 @@ def calculate_seats_swe_ep(party_votes, available_seats=20):
         
         available_seats -= 1
         
-        # b. Votes for the party that received the previous seat is divided by number of seats * 2 + 1
+        # b. Votes for the party that received this seat is divided by number of seats * 2 + 1
         new_divisor = n_seats[top_party] * 2 + 1
         comparative_quotas[top_party] = party_votes[top_party] / new_divisor
     
