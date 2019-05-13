@@ -39,13 +39,19 @@ def calculate_seats_swe_ep(party_votes, available_seats=20):
     # Set up data structures
     n_seats = defaultdict(int)
     result = defaultdict(int)
+    
+    # Remove parties that don't have at least 4 % of total votes
+    threshold = 0.04
+    total_votes = sum([x[1] for x in party_votes])
+    min_votes_req = total_votes * threshold
+    electable_parties_votes = [x for x in party_votes if x[1] >= min_votes_req]
 
     # 1. Divide all party votes by the first divisor
     first_divisor = 1.2
-    comparative_quotas = {p: v / first_divisor for p, v in party_votes}
+    comparative_quotas = {p: v / first_divisor for p, v in electable_parties_votes}
     
     # 2. While there are more seats
-    party_votes = dict(party_votes)
+    electable_parties_votes = dict(electable_parties_votes)
     while available_seats:
         # a. Party with the highest value gets the seat
         top_party = max(comparative_quotas.items(), key=operator.itemgetter(1))[0]
@@ -57,11 +63,11 @@ def calculate_seats_swe_ep(party_votes, available_seats=20):
         
         # b. Votes for the party that received this seat is divided by number of seats * 2 + 1
         new_divisor = n_seats[top_party] * 2 + 1
-        comparative_quotas[top_party] = party_votes[top_party] / new_divisor
+        comparative_quotas[top_party] = electable_parties_votes[top_party] / new_divisor
     
     # 3. If party did not receive any votes, add text
-    for key in party_votes.keys() - result.keys():
-        result[key] = 'no seats'
+    for key in dict(party_votes).keys() - result.keys():
+        result[key] = 0
     
     return [(k, v) for k, v in result.items()]
 
