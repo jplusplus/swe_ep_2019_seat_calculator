@@ -25,7 +25,7 @@ def calculate_seats_swe_ep(party_votes, available_seats=20):
             ("M", 12345),
             ("S", 23456),
             ...
-        ], seats=20)
+        ], available_seats=20)
 
         =>
 
