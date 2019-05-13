@@ -60,9 +60,8 @@ def calculate_seats_swe_ep(party_votes, available_seats=20):
         comparative_quotas[top_party] = party_votes[top_party] / new_divisor
     
     # 3. If party did not receive any votes, add text
-    for p in party_votes.keys():
-        if p not in result.keys():
-            result[p] = 'no seats'
+    for key in party_votes.keys() - result.keys():
+        result[key] = 'no seats'
     
     return [(k, v) for k, v in result.items()]
 
