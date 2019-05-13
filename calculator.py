@@ -54,11 +54,9 @@ def calculate_seats_swe_ep(party_votes, available_seats=20):
     electable_parties_votes = dict(electable_parties_votes)
     while available_seats:
         # a. Party with the highest value gets the seat
-        top_party = max(comparative_quotas.items(), key=operator.itemgetter(1))[0]
-        
+        top_party = max(comparative_quotas.items(), key=operator.itemgetter(1))[0] 
         n_seats[top_party] += 1
-        result[top_party] += 1
-        
+        result[top_party] += 1 
         available_seats -= 1
         
         # b. Votes for the party that received this seat is divided by number of seats * 2 + 1
