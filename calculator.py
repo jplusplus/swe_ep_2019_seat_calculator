@@ -18,7 +18,7 @@ def calculate_seats_swe_ep(party_votes, available_seats=20):
         2. While there are more seats:
             a. Give the party with the highest value a seat
             b. Divide party that received the seat by number of seats * 2 + 1
-        3. If party did not receive any seats, add to result with "no seats"
+        3. If party did not receive any seats, add to result with 0
                
     Usage:
         calculate_seats([
